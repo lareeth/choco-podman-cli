@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>podman-cli</id>
+    <title>Podman CLI</title>
+    <version>$version$</version>
+    <authors>Podman Contributors</authors>
+    <summary>Lightweight Linux for Podman</summary>
+    <description>Machine lets you create Podman hosts on your computer. It creates servers with Podman on them, then configures the Podman client to talk to them.</description>
+    <packageSourceUrl>https://github.com/lareeth/choco-podman-cli</packageSourceUrl>
+    <owners>lareeth</owners>
+    <projectUrl>https://podman.io/</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/containers/libpod/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/containers/libpod</projectSourceUrl>
+    <tags>podman-machine podman oci containers</tags>
+    <bugTrackerUrl>https://github.com/containers/libpod/issues</bugTrackerUrl>
+    <iconUrl>https://raw.githubusercontent.com/lareeth/choco-podman-cli/master/podman.png</iconUrl>
+    <releaseNotes>https://github.com/containers/libpod/releases/tag/vv$version$</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
