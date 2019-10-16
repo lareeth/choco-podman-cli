@@ -1,5 +1,5 @@
 $packageName    = 'podman-cli'
-$url            = 'https://storage.cloud.google.com/libpod-master-releases/podman-remote-v1.6.0-28-gdac7889d-master-windows-amd64.zip?authuser=0'
+$url            = 'https://github.com/lareeth/podman-cli-builder/releases/download/v1.6.0/podman-remote-v1.6.0-windows.zip'
 $validExitCodes = @(0)
  
 $toolsDir    = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
