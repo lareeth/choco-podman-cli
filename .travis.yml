@@ -4,7 +4,7 @@ os: windows
 
 env:
   global:
-    - VERSION=1.6.1-rc
+    - VERSION=1.6.1
 
 script:
   - choco pack --version $VERSION
