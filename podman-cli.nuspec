@@ -16,7 +16,7 @@
     <projectSourceUrl>https://github.com/containers/libpod</projectSourceUrl>
     <tags>podman-machine podman oci containers</tags>
     <bugTrackerUrl>https://github.com/containers/libpod/issues</bugTrackerUrl>
-    <iconUrl>https://raw.githubusercontent.com/lareeth/choco-podman-cli/master/podman.png</iconUrl>
+    <iconUrl>https://cdn.jsdelivr.net/gh/lareeth/choco-podman-cli/podman.png</iconUrl>
     <releaseNotes>https://github.com/containers/libpod/releases/tag/v$version$</releaseNotes>
   </metadata>
   <files>
