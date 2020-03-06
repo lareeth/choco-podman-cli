@@ -2,9 +2,13 @@ language: shell
 
 os: windows
 
+branches:
+  only: 
+    - master
+
 env:
   global:
-    - VERSION=1.6.2
+    - VERSION=1.6.3
 
 script:
   - choco pack --version $VERSION
