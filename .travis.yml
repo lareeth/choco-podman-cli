@@ -2,6 +2,10 @@ language: shell
 
 os: windows
 
+branches:
+  only: 
+    - master
+
 env:
   global:
     - VERSION=1.6.4
