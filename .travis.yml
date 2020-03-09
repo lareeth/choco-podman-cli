@@ -8,7 +8,7 @@ branches:
 
 env:
   global:
-    - VERSION=1.6.4
+    - VERSION=1.6.5
 
 script:
   - choco pack --version $VERSION
