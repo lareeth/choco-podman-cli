@@ -23,9 +23,9 @@ jobs:
       - name: Choco Pack
         uses: crazy-max/ghaction-chocolatey@v2
         with:
-          args: pack --version $VERSION
+          args: pack --version ${{ env.VERSION }}
 
       - name: Choco Push
         uses: crazy-max/ghaction-chocolatey@v2
         with:
-          args: push podman-cli.$VERSION.nupkg
+          args: push podman-cli.${{ env.VERSION }}.nupkg
