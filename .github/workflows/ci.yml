@@ -18,7 +18,7 @@ jobs:
       - name: Login to chocolatey.org
         uses: crazy-max/ghaction-chocolatey@v2
         with:
-          args: apikey --key $CHOCO_KEY --source "https://push.chocolatey.org/"
+          args: apikey --key ${{secrets.CHOCO_KEY}} --source "https://push.chocolatey.org/"
 
       - name: Choco Pack
         uses: crazy-max/ghaction-chocolatey@v2
