@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - 'main'
+
+env:
+  VERSION: 3.0.0
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to chocolatey.org
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: apikey --key $CHOCO_KEY --source "https://push.chocolatey.org/"
+
+      - name: Choco install InnoSetup
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: pack --version $VERSION
+
+      - name: Choco install InnoSetup
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: push podman-cli.$VERSION.nupkg
