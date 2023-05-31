@@ -6,7 +6,7 @@ on:
       - 'main'
 
 env:
-  VERSION: '2.0.0'
+  VERSION: '2.0.1'
 
 jobs:
   windows:
@@ -24,6 +24,11 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v2
         with:
           args: pack --version ${{ env.VERSION }}
+
+      - name: Choco Install
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: install podman-cli.${{ env.VERSION }}.nupkg
 
       - name: Choco Push
         uses: crazy-max/ghaction-chocolatey@v2
