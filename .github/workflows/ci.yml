@@ -6,7 +6,7 @@ on:
       - 'main'
 
 env:
-  VERSION: '3.2.2'
+  VERSION: '3.2.3'
 
 jobs:
   windows:
