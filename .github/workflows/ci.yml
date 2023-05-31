@@ -1,5 +1,9 @@
 name: ci
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
     branches:
@@ -14,6 +18,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Login to github.com
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: apikey --key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/lareeth/"
 
       - name: Login to chocolatey.org
         uses: crazy-max/ghaction-chocolatey@v2
@@ -30,7 +39,12 @@ jobs:
         with:
           args: install podman-cli.${{ env.VERSION }}.nupkg
 
-      - name: Choco Push
+      - name: Choco Push to github.com
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://nuget.pkg.github.com/lareeth/"
+
+      - name: Choco Push to chocolatey.org
         uses: crazy-max/ghaction-chocolatey@v2
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://push.chocolatey.org/"
