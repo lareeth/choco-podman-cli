@@ -37,7 +37,7 @@ jobs:
       - name: Choco Install
         uses: crazy-max/ghaction-chocolatey@v2
         with:
-          args: install podman-cli.${{ env.VERSION }}.nupkg
+          args: install podman-cli --version ${{ env.VERSION }} --source=.
 
       - name: Choco Push to github.com
         uses: crazy-max/ghaction-chocolatey@v2
