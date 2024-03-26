@@ -8,6 +8,9 @@ on:
   push:
     branches:
       - 'main'
+  pull_request:
+    branches:
+      - 'main'
 
 env:
   VERSION: '5.0.0'
@@ -21,11 +24,13 @@ jobs:
 
       - name: Login to github.com
         uses: crazy-max/ghaction-chocolatey@v2
+        if: github.event_name != 'pull_request'
         with:
           args: apikey --key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/lareeth/"
 
       - name: Login to chocolatey.org
         uses: crazy-max/ghaction-chocolatey@v2
+        if: github.event_name != 'pull_request'
         with:
           args: apikey --key ${{secrets.CHOCO_KEY}} --source "https://push.chocolatey.org/"
 
@@ -41,10 +46,12 @@ jobs:
 
       - name: Choco Push to github.com
         uses: crazy-max/ghaction-chocolatey@v2
+        if: github.event_name != 'pull_request'
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://nuget.pkg.github.com/lareeth/"
 
       - name: Choco Push to chocolatey.org
         uses: crazy-max/ghaction-chocolatey@v2
+        if: github.event_name != 'pull_request'
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://push.chocolatey.org/"
