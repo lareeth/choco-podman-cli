@@ -10,7 +10,7 @@ on:
       - 'main'
 
 env:
-  VERSION: '4.9.3'
+  VERSION: '5.0.0'
 
 jobs:
   windows:
