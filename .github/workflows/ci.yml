@@ -44,6 +44,9 @@ jobs:
         with:
           args: install podman-cli --version ${{ env.VERSION }} --source=.
 
+      - name: Podman Version
+        run: choco --version
+
       - name: Choco Push to github.com
         uses: crazy-max/ghaction-chocolatey@v3
         if: github.event_name != 'pull_request'
