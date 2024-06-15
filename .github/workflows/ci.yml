@@ -13,7 +13,7 @@ on:
       - 'main'
 
 env:
-  VERSION: '4.9.5'
+  VERSION: '5.1.1'
 
 jobs:
   windows:

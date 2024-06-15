@@ -1,6 +1,6 @@
 $packageName    = 'podman-cli'
-$url            = 'https://github.com/containers/podman/releases/download/v4.9.5/podman-remote-release-windows_amd64.zip'
-$checksum       = '4ba1b288ac6a0d3371cd694eb8930f0e9f72f24a8bf5328ca31a099284571627'
+$url            = 'https://github.com/containers/podman/releases/download/v5.1.1/podman-remote-release-windows_amd64.zip'
+$checksum       = 'fd9441cb427a9338e013b95516ce113110e22bbea9dc0876715afd8d581d519b'
 $checksumType   = 'sha256'
 $validExitCodes = @(0)
  
