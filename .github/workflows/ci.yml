@@ -13,31 +13,44 @@ on:
       - 'main'
 
 env:
-  VERSION: '5.6.2'
+  VERSION: '5.7.0'
 
 jobs:
-  windows:
+  pack:
     runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Login to github.com
-        uses: crazy-max/ghaction-chocolatey@v2
-        if: github.event_name != 'pull_request'
-        with:
-          args: apikey --key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/lareeth/"
-
-      - name: Login to chocolatey.org
-        uses: crazy-max/ghaction-chocolatey@v3
-        if: github.event_name != 'pull_request'
-        with:
-          args: apikey --key ${{secrets.CHOCO_KEY}} --source "https://push.chocolatey.org/"
-
       - name: Choco Pack
         uses: crazy-max/ghaction-chocolatey@v3
         with:
           args: pack --version ${{ env.VERSION }}
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: podman-cli-package
+          path: podman-cli.${{ env.VERSION }}.nupkg
+
+  test:
+    needs: pack
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ 'windows-latest', 'windows-11-arm' ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Package
+        uses: actions/download-artifact@v4
+        with:
+          name: podman-cli-package
+
+      - name: Check Processor Architecture
+        run: echo $env:PROCESSOR_ARCHITECTURE
+        shell: pwsh
 
       - name: Choco Install
         uses: crazy-max/ghaction-chocolatey@v3
@@ -47,14 +60,35 @@ jobs:
       - name: Podman Version
         run: podman --version
 
+  push:
+    needs: test
+    runs-on: windows-latest
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Package
+        uses: actions/download-artifact@v4
+        with:
+          name: podman-cli-package
+
+      - name: Login to github.com
+        uses: crazy-max/ghaction-chocolatey@v2
+        with:
+          args: apikey --key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/lareeth/"
+
+      - name: Login to chocolatey.org
+        uses: crazy-max/ghaction-chocolatey@v3
+        with:
+          args: apikey --key ${{secrets.CHOCO_KEY}} --source "https://push.chocolatey.org/"
+
       - name: Choco Push to github.com
         uses: crazy-max/ghaction-chocolatey@v3
-        if: github.event_name != 'pull_request'
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://nuget.pkg.github.com/lareeth/"
 
       - name: Choco Push to chocolatey.org
         uses: crazy-max/ghaction-chocolatey@v3
-        if: github.event_name != 'pull_request'
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://push.chocolatey.org/"
