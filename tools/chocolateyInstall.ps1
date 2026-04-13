@@ -1,12 +1,10 @@
 ﻿$packageName    = 'podman-cli'
-$url_amd64      = 'https://github.com/containers/podman/releases/download/v5.8.0/podman-remote-release-windows_amd64.zip'
-$url_arm64      = 'https://github.com/containers/podman/releases/download/v5.8.0/podman-remote-release-windows_arm64.zip'
-$checksum_amd64 = '5d88d730f9963c3cfabae4c8e688a025f59cd5ff045878506e3955b004eeb522'
-$checksum_arm64 = '43608836a0e9977acc0316dbd180fef68779d308aff21bd34ae91f01e9984041'
+$url_amd64      = 'https://github.com/containers/podman/releases/download/v5.8.2/podman-installer-windows-amd64.msi'
+$url_arm64      = 'https://github.com/containers/podman/releases/download/v5.8.2/podman-installer-windows-arm64.msi'
+$checksum_amd64 = 'eda54f26f9695d198d9a679fa45ae24ba35b78444f432b5fe0c122c5a3624c57'
+$checksum_arm64 = '77e9810e7598ef588b1fe7a850bf6baf572b30545dde82879a31638708c97bcd'
 $checksumType   = 'sha256'
 $validExitCodes = @(0)
- 
-$toolsDir    = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
 $os = Get-WmiObject -Class Win32_OperatingSystem
 if ($os.OSArchitecture -like "*ARM*") {
@@ -17,9 +15,14 @@ if ($os.OSArchitecture -like "*ARM*") {
     $checksum = $checksum_amd64
 }
 
-Install-ChocolateyZipPackage `
-  -PackageName $packageName `
-  -Url64bit "$url" `
-  -UnzipLocation "$toolsDir" `
-  -Checksum64 $checksum `
-  -ChecksumType64 $checksumType
+$packageArgs = @{
+  packageName   = $packageName
+  fileType      = 'MSI'
+  url64bit      = $url
+  checksum64    = $checksum
+  checksumType64= $checksumType
+  silentArgs    = "/qn /norestart"
+  validExitCodes= $validExitCodes
+}
+
+Install-ChocolateyPackage @packageArgs

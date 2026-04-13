@@ -58,7 +58,10 @@ jobs:
           args: install podman-cli --version ${{ env.VERSION }} --source=.
 
       - name: Podman Version
-        run: podman --version
+        run: |
+          refreshenv 
+          podman --version
+        shell: pwsh
 
   push:
     needs: test
