@@ -57,6 +57,12 @@ jobs:
         with:
           args: install podman-cli --version ${{ env.VERSION }} --source=.
 
+      - name: Refresh env
+        shell: pwsh
+        run: |
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+          refreshenv
+
       - name: Podman Version
         run: podman --version
 
