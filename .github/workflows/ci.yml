@@ -64,10 +64,7 @@ jobs:
           refreshenv
 
       - name: Podman Version
-        run: |
-          refreshenv 
-          podman --version
-        shell: pwsh
+        run: podman --version
 
   push:
     needs: test
