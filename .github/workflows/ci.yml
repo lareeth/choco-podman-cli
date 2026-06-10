@@ -13,22 +13,22 @@ on:
       - 'main'
 
 env:
-  VERSION: '5.8.0'
+  VERSION: '5.8.1'
 
 jobs:
   pack:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Choco Pack
-        uses: crazy-max/ghaction-chocolatey@v3
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: pack --version ${{ env.VERSION }}
 
       - name: Upload Package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: podman-cli-package
           path: podman-cli.${{ env.VERSION }}.nupkg
@@ -41,10 +41,10 @@ jobs:
         os: [ 'windows-latest', 'windows-11-arm' ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download Package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: podman-cli-package
 
@@ -53,7 +53,7 @@ jobs:
         shell: pwsh
 
       - name: Choco Install
-        uses: crazy-max/ghaction-chocolatey@v3
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: install podman-cli --version ${{ env.VERSION }} --source=.
 
@@ -69,29 +69,29 @@ jobs:
     if: github.event_name != 'pull_request'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download Package
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: podman-cli-package
 
       - name: Login to github.com
-        uses: crazy-max/ghaction-chocolatey@v2
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: apikey --key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/lareeth/"
 
       - name: Login to chocolatey.org
-        uses: crazy-max/ghaction-chocolatey@v3
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: apikey --key ${{secrets.CHOCO_KEY}} --source "https://push.chocolatey.org/"
 
       - name: Choco Push to github.com
-        uses: crazy-max/ghaction-chocolatey@v3
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://nuget.pkg.github.com/lareeth/"
 
       - name: Choco Push to chocolatey.org
-        uses: crazy-max/ghaction-chocolatey@v3
+        uses: crazy-max/ghaction-chocolatey@v4
         with:
           args: push podman-cli.${{ env.VERSION }}.nupkg --source "https://push.chocolatey.org/"
