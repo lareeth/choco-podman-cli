@@ -8,15 +8,26 @@
   "commitMessageExtra": "to {{newVersion}}",
   "customManagers": [
     {
-      "description": "Track Podman release version in the Chocolatey install script",
+      "description": "Track the Podman amd64 release and its sha256 (resolved from the release's shasums asset)",
       "customType": "regex",
       "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
       "matchStrings": [
-        "https://github\\.com/containers/podman/releases/download/v(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)/"
+        "\\$url_amd64\\s*=\\s*'https://github\\.com/containers/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_amd64\\.zip'\\s*\\n\\$checksum_amd64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
       ],
-      "datasourceTemplate": "github-releases",
+      "datasourceTemplate": "github-release-attachments",
       "depNameTemplate": "containers/podman",
-      "versioningTemplate": "semver"
+      "versioningTemplate": "semver-coerced"
+    },
+    {
+      "description": "Track the Podman arm64 release and its sha256 (resolved from the release's shasums asset)",
+      "customType": "regex",
+      "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
+      "matchStrings": [
+        "\\$url_arm64\\s*=\\s*'https://github\\.com/containers/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_arm64\\.zip'\\s*\\n\\$checksum_arm64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+      ],
+      "datasourceTemplate": "github-release-attachments",
+      "depNameTemplate": "containers/podman",
+      "versioningTemplate": "semver-coerced"
     }
   ],
   "packageRules": [
