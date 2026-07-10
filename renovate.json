@@ -1,0 +1,51 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "description": "Renovate configuration for choco-podman-cli",
+  "labels": ["dependencies"],
+  "semanticCommits": "enabled",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "customManagers": [
+    {
+      "description": "Track the Podman amd64 release and its sha256 (resolved from the release's shasums asset)",
+      "customType": "regex",
+      "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
+      "matchStrings": [
+        "\\$url_amd64\\s*=\\s*'https://github\\.com/containers/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_amd64\\.zip'\\s*\\n\\$checksum_amd64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+      ],
+      "datasourceTemplate": "github-release-attachments",
+      "depNameTemplate": "containers/podman",
+      "versioningTemplate": "semver-coerced"
+    },
+    {
+      "description": "Track the Podman arm64 release and its sha256 (resolved from the release's shasums asset)",
+      "customType": "regex",
+      "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
+      "matchStrings": [
+        "\\$url_arm64\\s*=\\s*'https://github\\.com/containers/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_arm64\\.zip'\\s*\\n\\$checksum_arm64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+      ],
+      "datasourceTemplate": "github-release-attachments",
+      "depNameTemplate": "containers/podman",
+      "versioningTemplate": "semver-coerced"
+    },
+    {
+      "description": "Track the package VERSION in the CI pipeline",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/workflows/ci\\.yml$/"],
+      "matchStrings": [
+        "VERSION:\\s*'(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)'"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "containers/podman",
+      "versioningTemplate": "semver-coerced"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Podman core release",
+      "matchDepNames": ["containers/podman"],
+      "labels": ["podman-update"]
+    }
+  ]
+}
