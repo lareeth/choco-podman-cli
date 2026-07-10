@@ -28,6 +28,17 @@
       "datasourceTemplate": "github-release-attachments",
       "depNameTemplate": "containers/podman",
       "versioningTemplate": "semver-coerced"
+    },
+    {
+      "description": "Track the package VERSION in the CI pipeline",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/workflows/ci\\.yml$/"],
+      "matchStrings": [
+        "VERSION:\\s*'(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)'"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "containers/podman",
+      "versioningTemplate": "semver-coerced"
     }
   ],
   "packageRules": [
