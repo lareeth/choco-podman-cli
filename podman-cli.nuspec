@@ -11,13 +11,13 @@
     <packageSourceUrl>https://github.com/lareeth/choco-podman-cli</packageSourceUrl>
     <owners>lareeth</owners>
     <projectUrl>https://podman.io/</projectUrl>
-    <licenseUrl>https://raw.githubusercontent.com/containers/libpod/master/LICENSE</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/podman-container-tools/podman/refs/heads/main/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <projectSourceUrl>https://github.com/containers/podman</projectSourceUrl>
+    <projectSourceUrl>https://github.com/podman-container-tools/podman</projectSourceUrl>
     <tags>podman-machine podman oci containers</tags>
-    <bugTrackerUrl>https://github.com/containers/podman/issues</bugTrackerUrl>
+    <bugTrackerUrl>https://github.com/podman-container-tools/podman/issues</bugTrackerUrl>
     <iconUrl>https://cdn.jsdelivr.net/gh/lareeth/choco-podman-cli/podman.png</iconUrl>
-    <releaseNotes>https://github.com/containers/podman/releases/tag/v$version$</releaseNotes>
+    <releaseNotes>https://github.com/podman-container-tools/podman/releases/tag/v$version$</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
