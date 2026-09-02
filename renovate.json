@@ -12,10 +12,10 @@
       "customType": "regex",
       "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
       "matchStrings": [
-        "\\$url_amd64\\s*=\\s*'https://github\\.com/containers/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_amd64\\.zip'\\s*\\n\\$checksum_amd64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+        "\\$url_amd64\\s*=\\s*'https://github\\.com/podman-container-tools/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_amd64\\.zip'\\s*\\n\\$checksum_amd64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
       ],
       "datasourceTemplate": "github-release-attachments",
-      "depNameTemplate": "containers/podman",
+      "depNameTemplate": "podman-container-tools/podman",
       "versioningTemplate": "semver-coerced"
     },
     {
@@ -23,10 +23,10 @@
       "customType": "regex",
       "managerFilePatterns": ["/^tools/chocolateyInstall\\.ps1$/"],
       "matchStrings": [
-        "\\$url_arm64\\s*=\\s*'https://github\\.com/containers/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_arm64\\.zip'\\s*\\n\\$checksum_arm64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
+        "\\$url_arm64\\s*=\\s*'https://github\\.com/podman-container-tools/podman/releases/download/(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+)/podman-remote-release-windows_arm64\\.zip'\\s*\\n\\$checksum_arm64\\s*=\\s*'(?<currentDigest>[a-f0-9]{64})'"
       ],
       "datasourceTemplate": "github-release-attachments",
-      "depNameTemplate": "containers/podman",
+      "depNameTemplate": "podman-container-tools/podman",
       "versioningTemplate": "semver-coerced"
     },
     {
@@ -37,14 +37,14 @@
         "VERSION:\\s*'(?<currentValue>[0-9]+\\.[0-9]+\\.[0-9]+)'"
       ],
       "datasourceTemplate": "github-releases",
-      "depNameTemplate": "containers/podman",
+      "depNameTemplate": "podman-container-tools/podman",
       "versioningTemplate": "semver-coerced"
     }
   ],
   "packageRules": [
     {
       "description": "Podman core release",
-      "matchDepNames": ["containers/podman"],
+      "matchDepNames": ["podman-container-tools/podman"],
       "labels": ["podman-update"]
     }
   ]
